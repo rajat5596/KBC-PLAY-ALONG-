@@ -133,7 +133,17 @@
 <audio id="correct-sound" src="correct.mp3"></audio>
 <audio id="wrong-sound" src="wrong.mp3"></audio>
 
-    const questions = [
+  <script>
+let questions = [];
+
+fetch("questions.json")
+  .then(response => response.json())
+  .then(data => {
+    questions = data;
+    loadQuestion();   // पहला सवाल लोड करो
+  })
+  .catch(error => console.error("JSON Error:", error));
+</script>
   { question: "किस भारतीय को Global Youth Icon Award 2025 मिला?", options: ["शुभम मिश्रा", "आयुष अग्रवाल", "अनन्या सिंह", "यशवर्धन त्रिपाठी"], answer: "अनन्या सिंह" },
   { question: "भारत की पहली AI-Powered Veterinary Hospital कहाँ शुरू हुई?", options: ["अहमदाबाद", "जयपुर", "कोलकाता", "हैदराबाद"], answer: "हैदराबाद" },
   { question: "हाल ही में भारत की किस महिला वैज्ञानिक को NASA Fellowship 2025 मिली?", options: ["नेहा गुप्ता", "मान्या नारंग", "रिया वशिष्ठ", "सीमा जोशी"], answer: "नेहा गुप्ता" },
