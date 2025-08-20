@@ -134,201 +134,75 @@
 <audio id="wrong-sound" src="wrong.mp3"></audio>
 
   <script>
-let questions = [];
-
-fetch("questions.json")
-  .then(response => response.json())
-  .then(data => {
-    questions = data;
-    loadQuestion();   // पहला सवाल लोड करो
-  })
-  .catch(error => console.error("JSON Error:", error));
-</script>
-  { question: "किस भारतीय को Global Youth Icon Award 2025 मिला?", options: ["शुभम मिश्रा", "आयुष अग्रवाल", "अनन्या सिंह", "यशवर्धन त्रिपाठी"], answer: "अनन्या सिंह" },
-  { question: "भारत की पहली AI-Powered Veterinary Hospital कहाँ शुरू हुई?", options: ["अहमदाबाद", "जयपुर", "कोलकाता", "हैदराबाद"], answer: "हैदराबाद" },
-  { question: "हाल ही में भारत की किस महिला वैज्ञानिक को NASA Fellowship 2025 मिली?", options: ["नेहा गुप्ता", "मान्या नारंग", "रिया वशिष्ठ", "सीमा जोशी"], answer: "नेहा गुप्ता" },
-  { question: "भारत का पहला AI Complaint Redressal Chatbot for Gram Panchayat किस राज्य में लॉन्च हुआ?", options: ["उत्तर प्रदेश", "ओडिशा", "हरियाणा", "बिहार"], answer: "उत्तर प्रदेश" },
-  { question: "किस राज्य में 2025 में Smart Forest Surveillance Drone Network लागू किया गया?", options: ["उत्तराखंड", "महाराष्ट्र", "नागालैंड", "असम"], answer: "असम" },
-  { question: "2025 में किस भारतीय फिल्म को UN Global Sustainability Message Award मिला?", options: ["Article 370", "Swatantra Veer Savarkar", "Maati", "Jal-Jeevan"], answer: "Jal-Jeevan" },
-  { question: "भारत का पहला AI-Based Sanskrit Teaching Tool किसने विकसित किया?", options: ["Banaras Hindu University", "IGNOU", "IIT Bombay", "Rashtriya Sanskrit Sansthan"], answer: "IIT Bombay" },
-  { question: "2025 में भारत की पहली AI Human Rights Grievance Portal कहाँ शुरू हुई?", options: ["दिल्ली", "चेन्नई", "भोपाल", "रांची"], answer: "दिल्ली" },
-  { question: "हाल ही में किस राज्य ने AI Traffic Violation Detection Bike पायलट योजना शुरू की?", options: ["केरल", "तेलंगाना", "पश्चिम बंगाल", "कर्नाटक"], answer: "कर्नाटक" },
-  { question: "किस देश ने भारत को 2025 में Global Clean Energy Champion घोषित किया?", options: ["अमेरिका", "संयुक्त राष्ट्र (UN)", "फ्रांस", "G20 संगठन"], answer: "संयुक्त राष्ट्र (UN)" },
-  { question: "2025 में भारत ने किस देश के साथ Biofuel Technology Transfer Agreement साइन किया?", options: ["ब्राज़ील", "कनाडा", "स्वीडन", "रूस"], answer: "ब्राज़ील" },
-  { question: "ISRO ने 2025 में किस नाम से नया Reusable Space Shuttle प्रोटोटाइप लॉन्च किया?", options: ["Vikram Next", "Pushpak", "Gaganyaan Lite", "AstraX"], answer: "Pushpak" },
-  { question: "किस भारतीय खिलाड़ी ने 2025 में Fastest T20 International Fifty का रिकॉर्ड बनाया?", options: ["सूर्यकुमार यादव", "ऋषभ पंत", "तिलक वर्मा", "शुभमन गिल"], answer: "तिलक वर्मा" },
-  { question: "2025 में किस राज्य ने Eco Metro Card योजना शुरू की?", options: ["उत्तर प्रदेश", "महाराष्ट्र", "गुजरात", "दिल्ली"], answer: "दिल्ली" },
-  { question: "भारत ने किस अफ्रीकी देश में 2025 में पहला Digital Health Infrastructure Centre स्थापित किया?", options: ["घाना", "नाइजीरिया", "केन्या", "रवांडा"], answer: "केन्या" },
-  { question: "हाल ही में Project SHAKTI 2.0 किस उद्देश्य के लिए शुरू किया गया है?", options: ["महिला सुरक्षा", "AI आधारित शिक्षा प्रणाली", "साइबर डिफेंस", "डिजिटल बैंकिंग"], answer: "साइबर डिफेंस" },
-  { question: "किस फिल्म को Best Global Documentary on Environment 2025 का पुरस्कार मिला?", options: ["The Last Drop", "Climate India", "Jal Yatra", "Earth Alert"], answer: "The Last Drop" },
-  { question: "भारत की कौन सी कंपनी 2025 में पहली Green Hydrogen Flight Engine बनाने में सफल रही?", options: ["DRDO", "HAL", "Reliance Aerospace", "BHEL"], answer: "HAL" },
-  { question: "किस देश ने भारत के प्रधानमंत्री को 2025 में Order of the Golden Falcon से सम्मानित किया?", options: ["UAE", "भूटान", "फ्रांस", "जापान"], answer: "UAE" },
-  { question: "हाल ही में किस राज्य ने Smart Irrigation Credit Scheme लागू की?", options: ["कर्नाटक", "पंजाब", "उत्तर प्रदेश", "मध्य प्रदेश"], answer: "पंजाब" },
-  { question: "2025 में भारत की पहली AI Legal Research Tool का नाम क्या है?", options: ["NyaaySetu", "LegalBot", "Vidhik", "NyayGPT"], answer: "NyayGPT" },
-  { question: "कौन सी भारतीय यूनिवर्सिटी 2025 में पहली Space Law Faculty शुरू करने जा रही है?", options: ["NLU Delhi", "JNU", "NALSAR Hyderabad", "BHU"], answer: "NALSAR Hyderabad" },
-  { question: "2025 में G20 Climate Meet कहाँ आयोजित की गई?", options: ["टोक्यो", "नई दिल्ली", "रोम", "केप टाउन"], answer: "केप टाउन" },
-  { question: "भारत का पहला AI-based Crop Disease Predictor किसने लॉन्च किया?", options: ["IARI", "ISRO", "ICAR", "Krishi AI Foundation"], answer: "ICAR" },
-  { question: "किस राज्य ने हाल ही में Digital Tribal Artisan Card योजना शुरू की?", options: ["ओडिशा", "झारखंड", "छत्तीसगढ़", "असम"], answer: "झारखंड" },
-  { question: "2025 में International Women in Space Award किस भारतीय को मिला?", options: ["रितु करिधाल", "अनुराधा टीके", "वेदिका भार्गव", "सीमा जोशी"], answer: "रितु करिधाल" },
-  { question: "भारत की पहली Drone-Based Blood Delivery Service कहाँ शुरू हुई?", options: ["नागालैंड", "असम", "उत्तराखंड", "अरुणाचल प्रदेश"], answer: "उत्तराखंड" },
-  { question: "किस देश ने हाल ही में भारत के साथ Blue Economy Strategic Alliance साइन किया?", options: ["ऑस्ट्रेलिया", "मालदीव", "नॉर्वे", "इंडोनेशिया"], answer: "नॉर्वे" },
-  { question: "हाल ही में किस राज्य में Climate Resilient City Index 2025 में पहला स्थान मिला?", options: ["इंदौर", "चेन्नई", "हैदराबाद", "मुंबई"], answer: "इंदौर" },
-  { question: "2025 में किस भारतीय खिलाड़ी को Best Emerging Tennis Star – Asia का अवार्ड मिला?", options: ["मानस भाटिया", "रामकुमार रामनाथन", "अनीश गोस्वामी", "अर्जुन खन्ना"], answer: "मानस भाटिया" },
-  { question: "हाल ही में भारत में किस राज्य ने AI Forest Monitoring System लागू किया?", options: ["उत्तराखंड", "केरल", "सिक्किम", "छत्तीसगढ़"], answer: "केरल" },
-  { question: "2025 में किसने Digital Constitution Archive का उद्घाटन किया?", options: ["राष्ट्रपति", "सुप्रीम कोर्ट", "केंद्रीय विधि मंत्रालय", "प्रधानमंत्री"], answer: "प्रधानमंत्री" },
-  { question: "किस राज्य ने One Click Disaster Insurance Scheme लॉन्च की?", options: ["बिहार", "महाराष्ट्र", "ओडिशा", "तमिलनाडु"], answer: "ओडिशा" },
-  { question: "2025 में भारत की पहली Metaverse Civil Court Training किसने आयोजित की?", options: ["NALSA", "सुप्रीम कोर्ट", "भारत सरकार", "BCI"], answer: "NALSA" },
-  { question: "किस भारतीय कंपनी ने 2025 में दुनिया की पहली AI-पावर्ड Electric Truck लॉन्च की?", options: ["टाटा मोटर्स", "महिंद्रा", "अशोक लीलैंड", "ओला इलेक्ट्रिक"], answer: "ओला इलेक्ट्रिक" },
-  { question: "हाल ही में किस राज्य ने Green AI Mission की शुरुआत की है?", options: ["कर्नाटक", "तमिलनाडु", "महाराष्ट्र", "पंजाब"], answer: "कर्नाटक" },
-  { question: "Bharat Blockchain Yojana 2025 का मुख्य उद्देश्य क्या है?", options: ["डिजिटल करेंसी निर्माण", "सरकारी दस्तावेज़ों का सत्यापन", "सरकारी सब्सिडी का ट्रैकिंग", "शिक्षा क्षेत्र का डिजिटलीकरण"], answer: "सरकारी सब्सिडी का ट्रैकिंग" },
-  { question: "भारत ने किस देश के साथ मिलकर Lunar Agriculture Lab की स्थापना की है?", options: ["जापान", "फ्रांस", "अमेरिका", "रूस"], answer: "अमेरिका" },
-  { question: "किस शहर को Cleanest Capital City 2025 घोषित किया गया?", options: ["भोपाल", "गांधीनगर", "नई दिल्ली", "चंडीगढ़"], answer: "चंडीगढ़" },
-  { question: "MATSYA UDYOG SURAKSHA YOJANA किससे जुड़ी हुई है?", options: ["मत्स्य पालन बीमा", "जलवायु अनुकूल मछली पालन", "मत्स्य पालकों की डिजिटल पहचान", "मछली निर्यात सब्सिडी"], answer: "मत्स्य पालन बीमा" },
-  { question: "2025 में India’s Smart Border Surveillance Project किस देश के साथ शुरू हुआ?", options: ["इज़राइल", "अमेरिका", "दक्षिण कोरिया", "फ्रांस"], answer: "इज़राइल" },
-  { question: "हाल ही में किस राज्य ने First AI District Collector Assistant नियुक्त किया?", options: ["राजस्थान", "महाराष्ट्र", "आंध्र प्रदेश", "केरल"], answer: "आंध्र प्रदेश" },
-  { question: "भारत की किस महिला वैज्ञानिक को 2025 में UN Women in Innovation अवार्ड मिला?", options: ["निधि अग्रवाल", "गीतांजलि राव", "डॉ. रुचि वर्मा", "डॉ. सीमा गुप्ता"], answer: "डॉ. सीमा गुप्ता" },
-  { question: "किस भारतीय शहर में 2025 की World Water Conference आयोजित की गई?", options: ["पुणे", "जयपुर", "अहमदाबाद", "वाराणसी"], answer: "जयपुर" },
-  { question: "भारत की किस स्टार्टअप ने 2025 में AI Judge for Minor Cases का प्रोटोटाइप प्रस्तुत किया?", options: ["LawTech AI", "JuriBot", "NyayaTech", "CodeJustice"], answer: "JuriBot" },
-  { question: "2025 में भारत ने किस ग्रह के लिए पहली बार AI Rover डिजाइन करने की घोषणा की?", options: ["मंगल ग्रह", "शुक्र ग्रह", "बृहस्पति", "चंद्रमा"], answer: "शुक्र ग्रह" }
-];
-    { question: "किस राज्य को 2025 में “India’s Most Sustainable State” का दर्जा मिला?", options: ["हिमाचल प्रदेश", "सिक्किम", "गोवा", "केरल"], answer: "सिक्किम" },
-    { question: "किस मंत्रालय ने “Cyber Shiksha Sathi” अभियान चलाया है?", options: ["गृह मंत्रालय", "महिला एवं बाल विकास मंत्रालय", "सूचना और प्रौद्योगिकी मंत्रालय", "शिक्षा मंत्रालय"], answer: "सूचना और प्रौद्योगिकी मंत्रालय" },
-    { question: "भारत की किस यूनिवर्सिटी ने 2025 में “National AI Ethics Centre” शुरू किया?", options: ["IISc बैंगलोर", "JNU", "BHU", "IIT मद्रास"], answer: "IIT मद्रास" },
-    { question: "किस देश ने 2025 में भारत के साथ “Digital Twin City Program” शुरू किया है?", options: ["जर्मनी", "जापान", "दक्षिण कोरिया", "सिंगापुर"], answer: "सिंगापुर" },
-    { question: "किस भारतीय शहर को “Most Climate Adaptive City 2025” नाम दिया गया?", options: ["कोच्चि", "सूरत", "इंदौर", "भुवनेश्वर"], answer: "सूरत" },
-    { question: "हाल ही में किस मंत्रालय ने “Vikas Darpan Dashboard” लॉन्च किया?", options: ["नीति आयोग", "ग्रामीण विकास मंत्रालय", "योजना आयोग", "G20 सचिवालय"], answer: "नीति आयोग" },
-    { question: "भारत ने 2025 में कौन सी नई मुद्रा टेक्नोलॉजी अपनाई है?", options: ["Green Currency", "Digital Rupee 2.0", "Blockchain Rupee", "e-RIN"], answer: "Digital Rupee 2.0" },
-    { question: "किस भारतीय खिलाड़ी को 2025 में “International Athlete for Peace” अवार्ड मिला?", options: ["नीरज चोपड़ा", "हरमनप्रीत कौर", "पीवी सिंधु", "मीराबाई चानू"], answer: "नीरज चोपड़ा" },
-    { question: "“India Agri-Tech Expo 2025” कहाँ आयोजित की गई?", options: ["हैदराबाद", "लखनऊ", "भोपाल", "पटना"], answer: "हैदराबाद" },
-    { question: "किस राज्य ने 2025 में “No Plastic Tourism District” घोषित किया है?", options: ["केरल", "सिक्किम", "गोवा", "उत्तराखंड"], answer: "गोवा" },
-    { question: "किस संगठन ने भारत को “2025 Clean Energy Vanguard Nation” घोषित किया है?", options: ["UNEP", "G20", "World Bank", "IEA"], answer: "UNEP" },
-    { question: "2025 में “भारत अंतरराष्ट्रीय शिक्षा सहयोग मंच (BIESF)” किस शहर में शुरू हुआ?", options: ["नई दिल्ली", "बेंगलुरु", "पुणे", "जयपुर"], answer: "नई दिल्ली" },
-    { question: "किस अंतरराष्ट्रीय संगठन ने भारत को “Global South Data Sovereignty Leader” कहा है?", options: ["UNCTAD", "IMF", "WEF", "World Bank"], answer: "WEF" },
-    { question: "पेरिस ओलंपिक 2024 में भारत को कितने पदक मिले?", options: ["7", "9", "11", "13"], answer: "11" },
-    { question: "ओलंपिक 2024 में भारत के लिए पहला स्वर्ण पदक किसने जीता?", options: ["नीरज चोपड़ा", "अविनाश साबले", "मीराबाई चानू", "पीवी सिंधु"], answer: "नीरज चोपड़ा" },
-    { question: "2024 में T20 वर्ल्ड कप जीतने वाली टीम कौन सी थी?", options: ["भारत", "ऑस्ट्रेलिया", "इंग्लैंड", "पाकिस्तान"], answer: "भारत" },
-    { question: "T20 वर्ल्ड कप 2024 के ‘प्लेयर ऑफ द टूर्नामेंट’ कौन रहे?", options: ["रोहित शर्मा", "हार्दिक पंड्या", "जसप्रीत बुमराह", "सूर्यकुमार यादव"], answer: "जसप्रीत बुमराह" },
-    { question: "2024 फीफा U-17 वर्ल्ड कप का आयोजन किस देश में हुआ?", options: ["भारत", "ब्राज़ील", "मोरक्को", "इंडोनेशिया"], answer: "इंडोनेशिया" },
-    { question: "2025 में 'All England Badminton Championship' जीतने वाले पहले भारतीय पुरुष खिलाड़ी कौन बने?", options: ["लक्ष्य सेन", "किदांबी श्रीकांत", "साई प्रणीत", "प्रणय एच.एस."], answer: "लक्ष्य सेन" },
-    { question: "हॉकी इंडिया लीग 2025 का खिताब किस टीम ने जीता?", options: ["पंजाब वारियर्स", "ओडिशा स्टीलर्स", "मुंबई मैवरिक्स", "दिल्ली ड्रेगन्स"], answer: "ओडिशा स्टीलर्स" },
-    { question: "“Khelo India Youth Games 2025” का आयोजन किस राज्य में हुआ?", options: ["गुजरात", "कर्नाटक", "असम", "उत्तर प्रदेश"], answer: "उत्तर प्रदेश" },
-    { question: "किस भारतीय महिला खिलाड़ी ने पेरिस ओलंपिक में वेटलिफ्टिंग में कांस्य पदक जीता?", options: ["संजिता चानू", "पूनम यादव", "मीराबाई चानू", "बिंदु देवी"], answer: "मीराबाई चानू" },
-    { question: "2025 में “World Archery Championship” में भारत को कितने पदक मिले?", options: ["1", "2", "3", "4"], answer: "3" },
-    { question: "2025 IPL में ‘Orange Cap’ किस खिलाड़ी को मिला?", options: ["शुभमन गिल", "विराट कोहली", "ऋतुराज गायकवाड़", "यशस्वी जायसवाल"], answer: "यशस्वी जायसवाल" },
-    { question: "IPL 2025 की विजेता टीम कौन सी बनी?", options: ["चेन्नई सुपर किंग्स", "कोलकाता नाइट राइडर्स", "दिल्ली कैपिटल्स", "मुंबई इंडियंस"], answer: "कोलकाता नाइट राइडर्स" },
-    { question: "पेरिस ओलंपिक 2024 में जूडो में भारत को किस वर्ग में पदक मिला?", options: ["52 किग्रा महिला", "60 किग्रा पुरुष", "78 किग्रा महिला", "भारत को कोई पदक नहीं मिला"], answer: "भारत को कोई पदक नहीं मिला" },
-    { question: "2025 में “Asian Indoor Games” का आयोजन कहाँ हुआ?", options: ["जापान", "चीन", "थाईलैंड", "कतर"], answer: "थाईलैंड" },
-    { question: "2025 में “World Table Tennis Championship” में भारत के लिए सबसे अच्छा प्रदर्शन किसने किया?", options: ["शरत कमल", "मानव ठक्कर", "अचंत शरत कमल", "हरमीत देसाई"], answer: "मानव ठक्कर" },
-    { question: "किस भारतीय खिलाड़ी ने 2025 में “British Open Golf” में टॉप-10 में जगह बनाई?", options: ["शुभंकर शर्मा", "अनुपम मुंडे", "अर्जुन अटवाल", "अदिति अशोक"], answer: "शुभंकर शर्मा" },
-    { question: "2025 में “Thomas Cup” में भारत का प्रदर्शन क्या रहा?", options: ["सेमीफाइनल तक पहुंचा", "चैंपियन बना", "क्वार्टर फाइनल में हार", "ग्रुप स्टेज से बाहर"], answer: "सेमीफाइनल तक पहुंचा" },
-    { question: "“World Athletics 2025” में भारत ने कितने पदक जीते?", options: ["1", "2", "3", "4"], answer: "2" },
-    { question: "2025 में “National Para Games” का आयोजन कहाँ हुआ?", options: ["दिल्ली", "भुवनेश्वर", "गांधीनगर", "भोपाल"], answer: "गांधीनगर" },
-    { question: "हॉकी इंडिया महिला लीग 2025 की विजेता टीम कौन बनी?", options: ["झारखंड वॉरियर्स", "हरियाणा हॉरनेट्स", "मणिपुर टाइगर्स", "ओडिशा क्वीनस"], answer: "ओडिशा क्वीनस" },
-    { question: "2025 में “Rugby Asia Cup” में भारत की स्थिति क्या रही?", options: ["चैंपियन", "रनर-अप", "सेमीफाइनल", "बाहर"], answer: "सेमीफाइनल" },
-    { question: "ISL 2024-25 का खिताब किसने जीता?", options: ["ATK मोहन बागान", "मुंबई सिटी FC", "बैंगलोर FC", "हैदराबाद FC"], answer: "मुंबई सिटी FC" },
-    { question: "महिला क्रिकेट वर्ल्ड कप 2025 का आयोजन कहाँ होगा?", options: ["इंग्लैंड", "भारत", "ऑस्ट्रेलिया", "न्यूज़ीलैंड"], answer: "भारत" },
-    { question: "महिला क्रिकेट वर्ल्ड कप 2025 में भारत का प्रदर्शन क्या रहा?", options: ["चैंपियन", "रनर-अप", "सेमीफाइनल", "ग्रुप स्टेज से बाहर"], answer: "सेमीफाइनल" },
-    { question: "“खेल रत्न अवॉर्ड 2025” किस खिलाड़ी को मिला?", options: ["पीवी सिंधु", "नीरज चोपड़ा", "मीराबाई चानू", "लक्ष्य सेन"], answer: "नीरज चोपड़ा" },
-    { question: "भारत का पहला ‘Carbon Neutral’ रेलवे स्टेशन कौन बना?", options: ["भोपाल", "चंडीगढ़", "पुणे", "सिकंदराबाद"], answer: "चंडीगढ़" },
-    { question: "ISRO ने जुलाई 2025 में कौन-सा नया मौसम उपग्रह लॉन्च किया?", options: ["INSAT-3DS", "GSAT-24", "RISAT-2BR2", "Megha-Tropiques"], answer: "INSAT-3DS" },
-    { question: "भारत सरकार ने 2025 में किस नए मिशन की शुरुआत की जो AI सेक्टर को बढ़ावा देगा?", options: ["India AI Mission", "Digital Future 2040", "Bharat AI Abhiyan", "Smart Tech India"], answer: "India AI Mission" },
-    { question: "“LiFE Movement” का उद्देश्य क्या है?", options: ["प्राकृतिक जीवनशैली को बढ़ावा देना", "जल संरक्षण", "डिजिटल शिक्षा", "युवाओं का कौशल विकास"], answer: "प्राकृतिक जीवनशैली को बढ़ावा देना" },
-    { question: "भारत की पहली Green Hydrogen Bus किस राज्य में शुरू की गई?", options: ["उत्तर प्रदेश", "गुजरात", "महाराष्ट्र", "जम्मू-कश्मीर"], answer: "जम्मू-कश्मीर" },
-    { question: "भारत में 2025 में सबसे ज़्यादा डाउनलोड किया गया शॉर्ट वीडियो ऐप कौन सा रहा?", options: ["Moj", "Josh", "Chingari", "SnackVideo"], answer: "Moj" },
-    { question: "जून 2025 में आए ‘Severe Cyclone’ का नाम क्या था जिससे पश्चिम बंगाल प्रभावित हुआ?", options: ["मोका", "अम्फान-II", "रामलाल", "रेमल"], answer: "रेमल" },
-    { question: "ISRO ने 2025 में किस देश के साथ मिलकर ‘Lunar Navigation Satellite’ योजना बनाई?", options: ["अमेरिका", "जापान", "रूस", "फ्रांस"], answer: "जापान" },
-    { question: "भारत की पहली AI Court (आर्टिफिशियल इंटेलिजेंस अदालत) की शुरुआत किस राज्य में हुई?", options: ["केरल", "महाराष्ट्र", "गुजरात", "राजस्थान"], answer: "गुजरात" },
-    { question: "2025 में भारत का पहला ‘Quantum Data Center’ किस शहर में लॉन्च हुआ?", options: ["नोएडा", "पुणे", "बैंगलोर", "हैदराबाद"], answer: "नोएडा" },
-    { question: "भारत सरकार की “Digital University” परियोजना की शुरुआत कब हुई?", options: ["मार्च 2023", "जनवरी 2024", "जून 2024", "अप्रैल 2025"], answer: "जून 2024" },
-    { question: "कौन-सी कंपनी भारत में पहला 100% सौर ऊर्जा से संचालित डेटा सेंटर बना रही है?", options: ["Adani", "Reliance Jio", "Google India", "Tata Power"], answer: "Adani" },
-    { question: "2025 में भारत ने किस मिशन के तहत पहली बार पृथ्वी की 4D इमेज जारी की?", options: ["PRITHVI-4D", "BHUVAN-Next", "EarthView 2025", "GAGAN-X"], answer: "PRITHVI-4D" },
-    { question: "2025 में भारत की किस संस्था ने Gene-Editing Technology का पहला सार्वजनिक क्लिनिकल ट्रायल शुरू किया?", options: ["AIIMS Delhi", "IIT Bombay", "CCMB Hyderabad", "ICMR"], answer: "CCMB Hyderabad" },
-    { question: "पर्यावरण के लिए भारत का कौन-सा मिशन “NET-ZERO 2070” लक्ष्य की ओर बढ़ रहा है?", options: ["मिशन LIFE", "हरित भारत मिशन", "ऊर्जा स्वतंत्रता मिशन", "सभी"], answer: "सभी" }
+// सीधे HTML के अंदर questions array define कर दो
+let questions = [
   {
-    "id": 581,
-    "question": "भारत की पहली महिला फाइटर पायलट स्क्वाड्रन लीडर कौन बनी?",
-    "options": ["भावना कंठ", "अवनी चतुर्वेदी", "शालिजा धामी", "तनुश्री पारीक"],
-    "answer": "शालिजा धामी"
-  },
-  {
-    "id": 582,
-    "question": "'स्टार्टअप महासंग्राम' 2025 का आयोजन किस शहर में हुआ?",
-    "options": ["मुंबई", "बेंगलुरु", "अहमदाबाद", "दिल्ली"],
+    "id": 1,
+    "question": "भारत की राजधानी कौन सी है?",
+    "options": ["दिल्ली", "मुंबई", "कोलकाता", "चेन्नई"],
     "answer": "दिल्ली"
   },
   {
-    "id": 583,
-    "question": "हाल ही में 'Sagar Samrat' को किस क्षेत्र में दोबारा सक्रिय किया गया?",
-    "options": ["बंगाल की खाड़ी", "कच्छ की खाड़ी", "ओएनजीसी मुंबई हाई", "अंडमान निकोबार"],
-    "answer": "ओएनजीसी मुंबई हाई"
+    "id": 2,
+    "question": "चंद्रयान-3 का लैंडिंग किस जगह पर हुई?",
+    "options": ["उत्तर ध्रुव", "दक्षिण ध्रुव", "भूमध्य रेखा", "पश्चिम"],
+    "answer": "दक्षिण ध्रुव"
   },
   {
-    "id": 584,
-    "question": "2025 में भारत के नए विदेश सचिव कौन बने हैं?",
-    "options": ["विनय मोहन क्वात्रा", "हर्षवर्धन श्रृंगला", "मुकुल कांत", "संजय वर्मा"],
-    "answer": "संजय वर्मा"
+    "id": 3,
+    "question": "भारत का पहला राष्ट्रपति कौन था?",
+    "options": ["राजेन्द्र प्रसाद", "नेहरू", "गांधीजी", "राधाकृष्णन"],
+    "answer": "राजेन्द्र प्रसाद"
   },
   {
-    "id": 585,
-    "question": "हाल ही में किसने IPL में एक ही सीजन में सबसे अधिक रन बनाए?",
-    "options": ["शुभमन गिल", "विराट कोहली", "रिंकू सिंह", "ऋतुराज गायकवाड़"],
-    "answer": "शुभमन गिल"
+    "id": 4,
+    "question": "ताजमहल कहाँ स्थित है?",
+    "options": ["दिल्ली", "आगरा", "जयपुर", "लखनऊ"],
+    "answer": "आगरा"
   },
   {
-    "id": 586,
-    "question": "किसे भारत में 2025 का नया RBI गवर्नर नियुक्त किया गया है?",
-    "options": ["शक्तिकांत दास", "रजनीश कुमार", "एस. एस. मुण्ड्रा", "टी. रवी शंकर"],
-    "answer": "टी. रवी शंकर"
-  },
-  {
-    "id": 587,
-    "question": "2025 में “वसुधैव कुटुम्बकम” किस वैश्विक मंच की थीम रही?",
-    "options": ["G20", "COP29", "SCO", "BRICS"],
-    "answer": "G20"
-  },
-  {
-    "id": 588,
-    "question": "किस राज्य ने हाल ही में 'Mission Shakti Scooter Yojana' शुरू की है?",
-    "options": ["उड़ीसा", "पंजाब", "पश्चिम बंगाल", "उत्तराखंड"],
-    "answer": "उड़ीसा"
-  },
-  {
-    "id": 589,
-    "question": "“One Nation One Election” की रिपोर्ट किस समिति ने सौंपी?",
-    "options": ["नितिन गडकरी समिति", "रामनाथ कोविंद समिति", "न्यायमूर्ति लोढ़ा समिति", "अमित शाह समिति"],
-    "answer": "रामनाथ कोविंद समिति"
-  },
-  {
-    "id": 590,
-    "question": "हाल ही में किस देश ने भारत के साथ “Digital Payment” MoU पर हस्ताक्षर किए?",
-    "options": ["जापान", "भूटान", "श्रीलंका", "अमेरिका"],
-    "answer": "श्रीलंका"
-  },
-  {
-    "id": 591,
-    "question": "भारत का पहला “ग्रीन हाइड्रोजन हब” कहाँ बन रहा है?",
-    "options": ["गुजरात", "महाराष्ट्र", "तमिलनाडु", "उत्तराखंड"],
-    "answer": "गुजरात"
-  },
-  {
-    "id": 592,
-    "question": "किसे 2025 में “Miss Universe India” का खिताब मिला?",
-    "options": ["श्रेया पाटिल", "श्रेया पल", "श्रेया पाटिल", "श्रेया अवस्थी"],
-    "answer": "श्रेया पल"
-  },
-  {
-    "id": 593,
-    "question": "भारत की पहली 'Electric High-Speed Bullet Train' किस रूट पर चलने वाली है?",
-    "options": ["दिल्ली-जयपुर", "दिल्ली-कानपुर", "मुंबई-अहमदाबाद", "कोलकाता-पटना"],
-    "answer": "मुंबई-अहमदाबाद"
-  },
-  {
-    "id": 594,
-    "question": "'IIT Delhi' के नए डायरेक्टर कौन बने हैं?",
-    "options": ["राघवेंद्र सिंह", "प्रो. राकेश मिश्रा", "प्रो. रंजन बासु", "प्रो. राकेश 
-      
-    ];
+    "id": 5,
+    "question": "हिमालय की सबसे ऊँची चोटी कौन सी है?",
+    "options": ["कंचनजंघा", "एवरेस्ट", "नंदा देवी", "धौलागिरी"],
+    "answer": "एवरेस्ट"
+  }
+];
 
+// अब इसी array से question लोड होंगे
+let currentQuestion = 0;
+function loadQuestion() {
+  const q = questions[currentQuestion];
+  document.getElementById("question").innerText = q.question;
+  const opts = document.getElementById("options");
+  opts.innerHTML = "";
+  q.options.forEach(opt => {
+    let btn = document.createElement("button");
+    btn.innerText = opt;
+    btn.onclick = () => checkAnswer(opt, q.answer, btn);
+    opts.appendChild(btn);
+  });
+}
+
+function checkAnswer(selected, correct, btn) {
+  if (selected === correct) {
+    btn.style.background = "green";
+  } else {
+    btn.style.background = "red";
+  }
+  setTimeout(() => {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      loadQuestion();
+    } else {
+      document.getElementById("question").innerText = "Quiz Over!";
+      document.getElementById("options").innerHTML = "";
+    }
+  }, 1000);
+}
+
+window.onload = loadQuestion;
+</script>
+  
     let currentQuestion = 0;
     let score = 0;
     let timer;
