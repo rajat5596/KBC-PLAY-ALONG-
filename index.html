@@ -218,13 +218,18 @@ loadQuestion();
     }
 
     function shareScore() {
-      let text = "🎯 मैंने KBC Quiz खेला और मेरा स्कोर है: " + score + "!\nआप भी खेलें 👉 [Your App Link]";
+      const shareText = `🎯 मैंने KBC Quiz में ${score} स्कोर किया! क्या आप मुझे हरा सकते हैं? खेलें यहाँ: ${window.location.href}`;
       if (navigator.share) {
-        navigator.share({ text: text });
+        navigator.share({
+          title: "KBC Quiz",
+          text: shareText,
+          url: window.location.href
+        });
       } else {
-        alert("Share this:\n" + text);
+        prompt("लिंक कॉपी करें और शेयर करें:", window.location.href);
       }
     }
+
   </script>
 </body>
 </html>
