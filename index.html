@@ -135,9 +135,10 @@ let questions = [
     function startQuiz() {
       document.querySelector(".start-btn").style.display = "none";
       document.getElementById("bgSound").play();  // background music start
-      shuffleArray(questions);
-      currentQuestion = 0; score = 0;
-      loadQuestion();
+    shuffleArray(questions);
+questions = questions.slice(0, 10);   // 🔥 सिर्फ 10 random सवाल चुन लो
+currentQuestion = 0; score = 0;
+loadQuestion();
     }
 
     function loadQuestion() {
