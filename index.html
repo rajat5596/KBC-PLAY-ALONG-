@@ -203,13 +203,13 @@ let questions = [
         if (currentQuestion < 10) {
             loadQuestion();
         } else {
-            alert("10 सवाल पूरे हो गए! अब क्विज़ फिर से शुरू होगा!");
-            currentQuestion = 0;
-            score = 0;
-            loadQuestion();
+    // Result Screen show karo
+    document.getElementById("finalScore").innerText = "आपका स्कोर है: " + score + "/10";
+    document.getElementById("resultScreen").style.display = "block";
+
+    // Quiz area ko hide karo
+    document.getElementById("quizArea").style.display = "none";
         }
-    }, 2000);
-  }
 function nextQuestion() {
   currentQuestion++;
   if (currentQuestion < questions.length && currentQuestion < 10) {
@@ -234,11 +234,15 @@ function nextQuestion() {
   }
 
   function shareScore() {
-    let text = `🎯 मैंने KBC Quiz खेला और मेरा स्कोर है: ${score}\n👉 खेलें यहाँ: https://your-vercel-app.vercel.app/`;
+    let text = `🎯 मैंने KBC Quiz खेला और मेरा स्कोर है: ${score}/10\n👉 खेलें यहाँ: https://your-vercel-app-url`;
     if (navigator.share) {
-      navigator.share({ title: "KBC Quiz", text: text, url: "https://your-vercel-app.vercel.app/" });
+        navigator.share({
+            title: "KBC Quiz",
+            text: text,
+            url: "https://your-vercel-app-url"
+        });
     } else {
-      alert("Share this link:\n" + text);
+        alert("Share this link:\n" + text);
     }
   }
   </script>
