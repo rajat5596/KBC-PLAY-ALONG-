@@ -244,7 +244,14 @@ function nextQuestion() {
     } else {
         alert("Share this link:\n" + text);
     }
-  }
+
+    function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    document.getElementById("resultScreen").style.display = "none";
+    document.getElementById("quizArea").style.display = "block";
+    loadQuestion();
+    }
   </script>
 </body>
 </html>
