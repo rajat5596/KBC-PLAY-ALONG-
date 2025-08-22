@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KBC Quiz</title>
+  <title>KBC PLAY ALONG</title>
   <style>
     body { font-family: Arial, sans-serif; background-color: #001f4d; color: white; text-align: center; margin: 0; padding: 0; }
     .container { padding: 20px; }
@@ -33,18 +33,18 @@
   <div id="top-ad">
     <script type="text/javascript">
       atOptions = {
-        'key' : '1103b20b1d708d29a34f48f4e512eaac',
+        'key' : 'fa3ec2ba10a5e26285bd95e654548af5',
         'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
+        'height' : 250,
+        'width' : 300,
         'params' : {}
       };
     </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/1103b20b1d708d29a34f48f4e512eaac/invoke.js"></script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/fa3ec2ba10a5e26285bd95e654548af5/invoke.js"></script>
   </div>
 
   <div class="container" id="quizArea">
-    <h1>🎯 KBC Quiz 🎯</h1>
+    <h1>🎯 KBC PLAY ALONG 🎯</h1>
     <div id="score">Score: 0</div>
     <button class="start-btn" onclick="startQuiz()">▶ Start Quiz</button>
     <div id="timer"></div>
@@ -61,23 +61,10 @@
     <button class="restart-btn" onclick="restartQuiz()">क्विज़ दोबारा शुरू करें</button>
   </div>
 
-  <div id="bottom-ad">
-    <script type="text/javascript">
-      atOptions = {
-        'key' : 'fa3ec2ba10a5e26285bd95e654548af5',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/fa3ec2ba10a5e26285bd95e654548af5/invoke.js"></script>
-  </div>
-
-  <audio id="timerSound" src="timer.mp3"></audio>
-  <audio id="correctSound" src="correct.mp3"></audio>
-  <audio id="wrongSound" src="wrong.mp3"></audio>
-  <audio id="bgSound" src="background.mp3" loop></audio>
+  <audio id="timerSound" src="sounds/timer.mp3"></audio>
+  <audio id="correctSound" src="sounds/correct.mp3"></audio>
+  <audio id="wrongSound" src="sounds/wrong.mp3"></audio>
+  <audio id="bgSound" src="sounds/background.mp3" loop></audio>
 
   <script>
     let questions = [
@@ -148,9 +135,19 @@
     let timer;
     let timeLeft = 20;
 
+    // ✅ Function to shuffle questions
+    function shuffleQuestions(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
     function startQuiz() {
       document.querySelector(".start-btn").style.display = "none";
       document.getElementById("bgSound").play();
+      // ✅ Shuffle questions at the beginning of the quiz
+      shuffleQuestions(questions);
       loadQuestion();
     }
 
