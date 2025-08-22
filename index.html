@@ -235,9 +235,9 @@
       let text = `🎯 मैंने KBC Quiz खेला और मेरा स्कोर है: ${score}/10\n👉 खेलें यहाँ: https://your-vercel-app-url`;
       if (navigator.share) {
         navigator.share({
-          title: "KBC Quiz",
+          title: "KBC PLAY ALONG",
           text: text,
-          url: "https://your-vercel-app-url"
+          url: "https://kbc-play-along.vercel.app/"
         });
       } else {
         alert("Share this link:\n" + text);
