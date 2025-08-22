@@ -195,12 +195,23 @@ let questions = [
       document.querySelectorAll(".option").forEach(opt => {
         if (opt.innerText === answer) opt.classList.add("correct");
       });
+    } document.querySelectorAll(".option").forEach(opt => {
+        if (opt.innerText === answer) opt.classList.add("correct");
+    });
+}
+
+setTimeout(() => {
+    currentQuestion++;
+    if (currentQuestion < 10) {
+        loadQuestion();
+    } else {
+        alert("10 सवाल पूरे हो गए! अब क्विज़ फिर से शुरू होगा!");
+        currentQuestion = 0;
+        score = 0;
+        loadQuestion();
     }
-    setTimeout(() => {
-      currentQuestion++;
-      loadQuestion();
-    }, 2000);
-  }
+}, 2000);
+    }
 function nextQuestion() {
   currentQuestion++;
   if (currentQuestion < questions.length && currentQuestion < 10) {
