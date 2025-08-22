@@ -185,33 +185,31 @@ let questions = [
     clearInterval(timer);
     let answer = questions[currentQuestion].answer;
     if (selectedOption.innerText === answer) {
-      selectedOption.classList.add("correct");
-      document.getElementById("correctSound").play();
-      score += 10;
-      document.getElementById("score").innerText = "Score: " + score;
+        selectedOption.classList.add("correct");
+        document.getElementById("correctSound").play();
+        score += 10;
+        document.getElementById("score").innerText = "Score: " + score;
     } else {
-      selectedOption.classList.add("wrong");
-      document.getElementById("wrongSound").play();
-      document.querySelectorAll(".option").forEach(opt => {
-        if (opt.innerText === answer) opt.classList.add("correct");
-      });
-    } document.querySelectorAll(".option").forEach(opt => {
-        if (opt.innerText === answer) opt.classList.add("correct");
-    });
-}
+        selectedOption.classList.add("wrong");
+        document.getElementById("wrongSound").play();
+        document.querySelectorAll(".option").forEach(opt => {
+            if (opt.innerText === answer) opt.classList.add("correct");
+        });
+    }
 
-setTimeout(() => {
-    currentQuestion++;
-    if (currentQuestion < 10) {
-        loadQuestion();
-    } else {
-        alert("10 सवाल पूरे हो गए! अब क्विज़ फिर से शुरू होगा!");
-        currentQuestion = 0;
-        score = 0;
-        loadQuestion();
-    }
-}, 2000);
-    }
+    // ✅ Yahi pe setTimeout daalna hai
+    setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < 10) {
+            loadQuestion();
+        } else {
+            alert("10 सवाल पूरे हो गए! अब क्विज़ फिर से शुरू होगा!");
+            currentQuestion = 0;
+            score = 0;
+            loadQuestion();
+        }
+    }, 2000);
+  }
 function nextQuestion() {
   currentQuestion++;
   if (currentQuestion < questions.length && currentQuestion < 10) {
