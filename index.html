@@ -201,7 +201,18 @@ let questions = [
       loadQuestion();
     }, 2000);
   }
-
+function nextQuestion() {
+  currentQuestion++;
+  if (currentQuestion < questions.length && currentQuestion < 10) {
+    loadQuestion();
+  } else {
+    // 10 सवाल पूरे होते ही reset
+    alert("10 सवाल पूरे हो गए! अब क्विज़ फिर से शुरू होगा।");
+    currentQuestion = 0;
+    score = 0;
+    loadQuestion();
+  }
+}
   function use5050() {
     let q = questions[currentQuestion];
     let wrongOptions = q.options.filter(o => o !== q.answer);
